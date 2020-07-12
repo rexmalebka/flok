@@ -238,17 +238,39 @@ class TextEditor extends Component<Props, {}> {
       extraKeys
     };
 
+    // const { className: heightClassName, styles: heightStyles } = css.resolve`
+    //   .CodeMirror {
+    //     height: ${isHalfHeight ? '50vh' : '100vh'};
+    //   }
+    // `;
+
     return (
       <div>
         <EvaluateButton onClick={this.handleEvaluateButtonClick} />
         <Description editorId={editorId} target={target} />
         <CodeMirror
-          className={`editor ${isHalfHeight && "is-half-height"}`}
+          className="editor"
           ref={el => {
             this.cm = el;
           }}
           options={options}
         />
+        <style jsx global>{`
+          .editor > .CodeMirror {
+            background-color: rgba(0, 0, 0, 0) !important;
+            font-family: Monaco, monospace;
+            font-size: 14px;
+          }
+          .editor > .CodeMirror .CodeMirror-line > span {
+            border-radius: 4px;
+            padding: 1px;
+            background-color: rgba(0, 0, 0, 0.6);
+          }
+          .editor > .CodeMirror .CodeMirror-line .flash-selection {
+            background-color: #ffff77cc;
+            color: #000;
+          }
+        `}</style>
       </div>
     );
   }
